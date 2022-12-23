@@ -1,14 +1,45 @@
 package raytracer
 
-import Matrix
+import Matrix2
+import Matrix3
+import Matrix4
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
 
 class MatrixTest : StringSpec ({
-    "create a matrix" {
-        val m = Matrix(
+    "create a 2x2 matrix" {
+        val m = Matrix2(
+            arrayOf(
+                arrayOf(1.0, 2.0),
+                arrayOf(5.5, 6.5)
+            )
+        )
+
+        m[0, 0] shouldBe 1.0
+        m[0, 1] shouldBe 2.0
+        m[1, 0] shouldBe 5.5
+        m[1, 1] shouldBe 6.5
+    }
+
+    "create a 3x3 matrix" {
+        val m = Matrix3(
+            arrayOf(
+                arrayOf(1.0, 2.0, 1.0),
+                arrayOf(5.5, 6.5, 1.0),
+                arrayOf(5.5, 6.5, 1.0)
+            )
+        )
+
+        m[0, 0] shouldBe 1.0
+        m[1, 0] shouldBe 5.5
+        m[2, 2] shouldBe 1.0
+    }
+
+    "create a 4x4 matrix" {
+        val m = Matrix4(
             arrayOf(
                 arrayOf(1.0, 2.0, 3.0, 4.0),
                 arrayOf(5.5, 6.5, 7.5, 8.5),
@@ -27,16 +58,20 @@ class MatrixTest : StringSpec ({
     }
 
     "compare two matrices of equal size" {
-        val m1 = Matrix(
+        val m1 = Matrix4(
             arrayOf(
                 arrayOf(5.5, 6.5, 7.5, 8.5),
+                arrayOf(5.5, 6.5, 7.5, 8.5),
+                arrayOf(13.5, 14.5, 15.5, 16.5),
                 arrayOf(13.5, 14.5, 15.5, 16.5)
             )
         )
 
-        val m2 = Matrix(
+        val m2 = Matrix4(
             arrayOf(
                 arrayOf(5.5, 6.5, 7.5, 8.5),
+                arrayOf(5.5, 6.5, 7.5, 8.5),
+                arrayOf(13.5, 14.5, 15.5, 16.5),
                 arrayOf(13.5, 14.5, 15.5, 16.5)
             )
         )
@@ -45,21 +80,34 @@ class MatrixTest : StringSpec ({
     }
 
     "compare two matrices of different size" {
-        val m1 = Matrix(arrayOf(arrayOf(5.5, 6.5, 7.5, 1.0), arrayOf(13.5, 14.5, 15.5, 7.0)))
-        val m2 = Matrix(arrayOf(arrayOf(5.5, 6.5, 7.5), arrayOf(13.5, 14.5, 15.5)))
+        val m1 = Matrix2(
+            arrayOf(
+                arrayOf(1.0, 2.0),
+                arrayOf(5.5, 6.5)
+            )
+        )
 
-        assertNotEquals(m1, m2)
+        val m2 = Matrix4(
+            arrayOf(
+                arrayOf(5.5, 6.5, 7.5, 8.5),
+                arrayOf(5.5, 6.5, 7.5, 8.5),
+                arrayOf(13.5, 14.5, 15.5, 16.5),
+                arrayOf(13.5, 14.5, 15.5, 16.5)
+            )
+        )
+
+        assertFalse(m1.equals(m2))
     }
 
     "multiply two matrices" {
-        val m1 = Matrix(
+        val m1 = Matrix4(
             arrayOf(
                 arrayOf(1.0, 2.0, 3.0, 4.0),
                 arrayOf(5.0, 6.0, 7.0, 8.0),
                 arrayOf(9.0, 8.0, 7.0, 6.0),
                 arrayOf(5.0, 4.0, 3.0, 2.0)
             ))
-        val m2 = Matrix(
+        val m2 = Matrix4(
             arrayOf(
                 arrayOf(-2.0, 1.0, 2.0, 3.0),
                 arrayOf(3.0, 2.0, 1.0, -1.0),
@@ -67,7 +115,7 @@ class MatrixTest : StringSpec ({
                 arrayOf(1.0, 2.0, 7.0, 8.0)
             ))
 
-        val expected = Matrix(
+        val expected = Matrix4(
             arrayOf(
                 arrayOf(20.0, 22.0, 50.0, 48.0),
                 arrayOf(44.0, 54.0, 114.0, 108.0),
