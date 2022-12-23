@@ -142,4 +142,16 @@ class MatrixTest : StringSpec ({
 
         assertEquals(m * v, expected)
     }
+
+    "create 4x4 identity" {
+        val m = Matrix4(
+            arrayOf(
+                arrayOf(1.0, 2.0, 3.0, 4.0),
+                arrayOf(2.0, 4.0, 4.0, 2.0),
+                arrayOf(8.0, 6.0, 4.0, 1.0),
+                arrayOf(0.0, 0.0, 0.0, 1.0)
+            ))
+
+        assertEquals(m * Matrix4.IDENTITY, m)
+    }
 })

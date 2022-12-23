@@ -70,4 +70,15 @@ class Matrix4(override val data: Array<Array<Double>>): Matrix() {
             this[2, 0] * other.x + this[2, 1] * other.y + this[2, 2] * other.z + this[2, 3] * other.w,
             this[3, 0] * other.x + this[3, 1] * other.y + this[3, 2] * other.z + this[3, 3] * other.w
         )
+
+    companion object {
+        val IDENTITY = Matrix4(
+            arrayOf(
+                arrayOf(1.0, 0.0, 0.0, 0.0),
+                arrayOf(0.0, 1.0, 0.0, 0.0),
+                arrayOf(0.0, 0.0, 1.0, 0.0),
+                arrayOf(0.0, 0.0, 0.0, 1.0)
+            )
+        )
+    }
 }
