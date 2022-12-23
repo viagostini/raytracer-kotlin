@@ -39,4 +39,10 @@ class ColorTest : StringSpec ({
 
         c1 * c2 shouldBe Color(0.9, 0.2, 0.04)
     }
+
+    "can be converted to RGB hex" {
+        val c = Color(0, 0, 0)
+
+        c.toHex() shouldBe 0xff0000
+    }
 })
