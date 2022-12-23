@@ -3,6 +3,7 @@ package raytracer
 import Matrix2
 import Matrix3
 import Matrix4
+import Vector
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import kotlin.test.assertEquals
@@ -124,5 +125,21 @@ class MatrixTest : StringSpec ({
             ))
 
         assertEquals(m1 * m2, expected)
+    }
+
+    "multiply a matrix by a vector" {
+        val m = Matrix4(
+            arrayOf(
+                arrayOf(1.0, 2.0, 3.0, 4.0),
+                arrayOf(2.0, 4.0, 4.0, 2.0),
+                arrayOf(8.0, 6.0, 4.0, 1.0),
+                arrayOf(0.0, 0.0, 0.0, 1.0)
+            ))
+
+        val v = Vector(1, 2, 3, 1)
+
+        val expected = Vector(18, 24, 33, 1)
+
+        assertEquals(m * v, expected)
     }
 })

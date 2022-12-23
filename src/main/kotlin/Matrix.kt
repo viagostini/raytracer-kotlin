@@ -62,4 +62,12 @@ class Matrix4(override val data: Array<Array<Double>>): Matrix() {
         }
         return ret
     }
+
+    operator fun times(other: Vector) =
+        Vector(
+            this[0, 0] * other.x + this[0, 1] * other.y + this[0, 2] * other.z + this[0, 3] * other.w,
+            this[1, 0] * other.x + this[1, 1] * other.y + this[1, 2] * other.z + this[1, 3] * other.w,
+            this[2, 0] * other.x + this[2, 1] * other.y + this[2, 2] * other.z + this[2, 3] * other.w,
+            this[3, 0] * other.x + this[3, 1] * other.y + this[3, 2] * other.z + this[3, 3] * other.w
+        )
 }
