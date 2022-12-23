@@ -71,6 +71,18 @@ class Matrix4(override val data: Array<Array<Double>>): Matrix() {
             this[3, 0] * other.x + this[3, 1] * other.y + this[3, 2] * other.z + this[3, 3] * other.w
         )
 
+    fun transposed(): Matrix4 {
+        val ret = Matrix4()
+
+        for (i in 0 until 4) {
+            for (j in 0 until 4) {
+                ret[i, j] = this[j, i]
+            }
+        }
+
+        return ret
+    }
+
     companion object {
         val IDENTITY = Matrix4(
             arrayOf(

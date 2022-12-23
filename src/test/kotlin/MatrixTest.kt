@@ -8,7 +8,6 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
-import kotlin.test.assertNotEquals
 
 class MatrixTest : StringSpec ({
     "create a 2x2 matrix" {
@@ -153,5 +152,29 @@ class MatrixTest : StringSpec ({
             ))
 
         assertEquals(m * Matrix4.IDENTITY, m)
+    }
+
+    "transpose 4x4 matrix" {
+        val m = Matrix4(
+            arrayOf(
+                arrayOf(1.0, 2.0, 3.0, 4.0),
+                arrayOf(2.0, 4.0, 4.0, 2.0),
+                arrayOf(8.0, 6.0, 4.0, 1.0),
+                arrayOf(0.0, 0.0, 0.0, 1.0)
+            ))
+
+        val expected = Matrix4(
+            arrayOf(
+                arrayOf(1.0, 2.0, 8.0, 0.0),
+                arrayOf(2.0, 4.0, 6.0, 0.0),
+                arrayOf(3.0, 4.0, 4.0, 0.0),
+                arrayOf(4.0, 2.0, 1.0, 1.0)
+            ))
+
+        assertEquals(m.transposed(), expected)
+    }
+
+    "transposing identity does not modify it" {
+        assertEquals(Matrix4.IDENTITY.transposed(), Matrix4.IDENTITY)
     }
 })
